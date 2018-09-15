@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+  <body>
+    Please, enter your information:<br/><br/>
+    <h:form>
+      First Name: <h:inputText value="#{userRegistration.firstName}" required="true"/><br/>
+      Last Name: <h:inputText value="#{userRegistration.lastName}" required="true"/><br/>
+      Username: <h:inputText value="#{userRegistration.loginName}" required="true"/><br/>
+      Password: <h:inputSecret value="#{userRegistration.password}" required="true"/><br/>
+      <h:commandButton value="Finish" action="#{userRegistration.register}"/>
+    </h:form>
+  </body>
+</html>
+

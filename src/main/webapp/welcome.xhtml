@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:messages globalOnly="true"/>
+
+<h:form id="loginForm" rendered="#{not identity.loggedIn}">
+
+    <div class="loginRow">
+        <h:outputLabel for="name" value="Username" styleClass="loginLabel"/>
+        <h:inputText id="name" value="#{loginCredentials.userId}"/>
+    </div>
+
+    <div class="loginRow">
+        <h:outputLabel for="password" value="Password" styleClass="loginLabel"/>
+        <h:inputSecret id="password" value="#{loginCredentials.password}" redisplay="true"/>
+    </div>
+
+    <div class="loginRow">
+
+    </div>
+
+    <div class="buttons">
+        <h:commandButton id="login" value="Login" action="#{identity.login}" styleClass="loginButton"/>
+    </div>
+
+    <p>
+      Tip: you can login with a either of these accounts:<br/>
+      john/demo has been granted the employee role<br/>
+      mary/demo has been granted the admin role
+    </p>
+
+</h:form>
+
+<ui:fragment rendered="#{identity.loggedIn}">
+   <h:form>
+ Welcome <b>#{identity.account.loginName}</b>!
+       <h:commandButton value="Logout" action="#{identity.logout}" />
+       <p />
+       Execute an action:                  
+       <h:commandButton value="Employees only Method" action="#{controller.employeeMethod}" />
+       <h:commandButton value="Admins only Method" action="#{controller.adminMethod}" />
+       
+       <p>
+         Users with the "employee" role may only invoke the employees-only method, while users with
+         the "admin" role may invoke both methods.
+       </p>
+   </h:form>
+</ui:fragment>
+
+
+</html>
