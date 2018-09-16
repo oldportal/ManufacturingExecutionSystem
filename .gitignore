@@ -24,6 +24,7 @@ hs_err_pid*
 
 # IDE specific
 nb-configuration.xml
+nbactions.xml
 faces-config.NavData
 
 # deployed package files #
