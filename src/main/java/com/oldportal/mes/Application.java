@@ -11,19 +11,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Application start point.
  * 
  * @author Dmitry Ognyannikov
  */
-@SpringBootApplication
+@SpringBootApplication(exclude={org.activiti.spring.boot.SecurityAutoConfiguration.class})
 @EnableTransactionManagement
-@EnableGlobalMethodSecurity
-@EnableSwagger2
+//@EnableGlobalMethodSecurity
 @Import(WebAppConfiguration.class)
 @ImportResource("classpath:connections.xml")
 public class Application extends WebMvcAutoConfiguration {

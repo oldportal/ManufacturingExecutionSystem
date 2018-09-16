@@ -5,26 +5,20 @@
  */
 package com.oldportal.mes.webbeans;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.codec.Base64;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * Just reference example.
  *
  * @author Dmitry Ognyannikov
  */
-@RunWith(value = SpringJUnit4ClassRunner.class)
-@ContextConfiguration(value = {"classpath:connections-test.xml"})
+@RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest
+//@ContextConfiguration(value = {"classpath:connections-test.xml"})
 //@ContextConfiguration(classes = WebAppConfiguration.class)
 public class SampleBeanTest {
     //@Autowired

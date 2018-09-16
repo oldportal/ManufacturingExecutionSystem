@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 @ViewScoped
 @Transactional(value="transactionManager", readOnly = true, propagation=Propagation.REQUIRED)
 public class Monitoring implements Serializable {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @PostConstruct
     public void setup()  {
         
