@@ -5,32 +5,27 @@
  */
 package com.oldportal.mes.webbeans;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import com.oldportal.mes.Application;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+
+
 
 /**
  * Just reference example.
  *
  * @author Dmitry Ognyannikov
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
-//@ContextConfiguration(value = {"classpath:connections-test.xml"})
-//@ContextConfiguration(classes = WebAppConfiguration.class)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringJUnitConfig(Application.class)
 public class SampleBeanTest {
     //@Autowired
     //WebApplicationContext wac;
 
-    @Before
+    @BeforeAll
     public void init() {
-
-    }
-
-    @Test
-    public void test() {
 
     }
 
