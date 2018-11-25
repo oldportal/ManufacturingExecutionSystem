@@ -16,7 +16,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <activiti.version>6.0.0</activiti.version>
+        <activiti.version>7.0.0.Beta3</activiti.version>
     </properties>
     
     <parent>
@@ -24,6 +24,7 @@
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.0.4.RELEASE</version>
     </parent>
+    
   
     <licenses>
         <license>
@@ -95,7 +96,7 @@
         <!-- Activiti -->
         <dependency>
             <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-basic</artifactId>
+            <artifactId>activiti-spring-boot-starter</artifactId>
             <version>${activiti.version}</version>
         </dependency>		
         <!--<dependency>

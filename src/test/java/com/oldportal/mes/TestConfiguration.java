@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Dmitry Ognyannikov
  */
 @Configuration
-@EnableAutoConfiguration(exclude={org.activiti.spring.boot.SecurityAutoConfiguration.class})
+@EnableAutoConfiguration(exclude={})
 @ComponentScan
 @EnableTransactionManagement
 @Import(WebAppConfiguration.class)
