@@ -26,6 +26,8 @@ hs_err_pid*
 nb-configuration.xml
 nbactions.xml
 faces-config.NavData
+*.idea
+manufacturing-execution-system.iml
 
 # deployed package files #
 
