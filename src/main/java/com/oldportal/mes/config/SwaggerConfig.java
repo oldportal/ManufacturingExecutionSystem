@@ -39,9 +39,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
                 .title("OldPortal ManufacturingExecutionSystem REST API")
                 .description("REST API for discrete manufacturing.")
                 .version("1.0.0")
-                .license("Apache License Version 2.0")
-                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
-                //.contact(new Contact("John Thompson", "https://springframework.guru/about/", "john@springfrmework.guru"))
+                .license("MIT License")
+                .licenseUrl("http://opensource.org/licenses/MIT")
+                .contact(new Contact("Dmitry Ognyannikov", "https://github.com/dmogn", "dmogn@mail.ru"))
                 .build();
     }
     
