@@ -5,12 +5,14 @@
  */
 package com.oldportal.mes.webbeans;
 
+import com.oldportal.mes.TestConfiguration;
 import com.oldportal.mes.Application;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
-
+import org.springframework.web.context.WebApplicationContext;
 
 
 /**
@@ -19,7 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
  * @author Dmitry Ognyannikov
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-@SpringJUnitConfig(Application.class)
+@SpringJUnitConfig(TestConfiguration.class)
 public class SampleBeanTest {
     //@Autowired
     //WebApplicationContext wac;
