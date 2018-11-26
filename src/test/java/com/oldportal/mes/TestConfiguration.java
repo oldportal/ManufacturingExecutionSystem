@@ -19,10 +19,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Dmitry Ognyannikov
  */
 @Configuration
-@EnableAutoConfiguration(exclude={})
-@ComponentScan
-@EnableTransactionManagement
-@Import(WebAppConfiguration.class)
+//@EnableAutoConfiguration(exclude={})
+//@ComponentScan
+//@EnableTransactionManagement
+//@Import(WebAppConfiguration.class)
 @ImportResource("classpath:connections-test.xml")
 public class TestConfiguration {
     

@@ -6,33 +6,59 @@
 package com.oldportal.mes.webbeans;
 
 import com.oldportal.mes.TestConfiguration;
-import com.oldportal.mes.Application;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
+//import static org.hamcrest.Matchers.containsString;
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Just reference example.
+ * 
+ * In this test, the full Spring application context is started, but without the server (@AutoConfigureMockMvc -> MockMvc). 
  *
  * @author Dmitry Ognyannikov
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringJUnitConfig(TestConfiguration.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class SampleBeanTest {
-    //@Autowired
-    //WebApplicationContext wac;
+    @Autowired
+    WebApplicationContext wac;
+    
+    @Autowired
+    private MockMvc mockMvc;
 
     @BeforeAll
     public void init() {
 
     }
+    
+    @Test
+    public void testEnvitonment() {
+        assertNotNull(wac);
+    }
+    
+    @Test
+    public void testHomepage() throws Exception {
+//        this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+//                .andExpect(content().string(containsString("Hello World!")));
+    }
 
     @Test
-    public void testSecureService() {
+    public void testSecureService() {        
 //        String plainCreds = "guest:guest123";
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.add("Authorization", "Basic " + new String(Base64.
