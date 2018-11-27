@@ -5,13 +5,8 @@
  */
 package com.oldportal.mes;
 
-import com.oldportal.mes.config.WebAppConfiguration;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Spring App configuration for unit tests.
@@ -19,10 +14,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @author Dmitry Ognyannikov
  */
 @Configuration
-//@EnableAutoConfiguration(exclude={})
-//@ComponentScan
-//@EnableTransactionManagement
-//@Import(WebAppConfiguration.class)
 @ImportResource("classpath:connections-test.xml")
 public class TestConfiguration {
     
