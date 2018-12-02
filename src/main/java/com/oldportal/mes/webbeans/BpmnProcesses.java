@@ -8,6 +8,7 @@ package com.oldportal.mes.webbeans;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.activiti.api.model.shared.model.VariableInstance;
 import org.activiti.api.process.model.ProcessInstance;
 import org.activiti.api.process.model.builders.ProcessPayloadBuilder;
 import org.activiti.api.process.runtime.ProcessRuntime;
@@ -103,4 +104,11 @@ public class BpmnProcesses {
     public void completeTask(String taskId) {
         taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(taskId).build());
     }
+    
+    @Transactional
+    public List<VariableInstance> getTaskVariables(String taskId) {
+        return taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(taskId).build());
+    }
+    
+    
 }
