@@ -50,15 +50,14 @@ public class BpmnProcesses {
     @Transactional
     public void startProcess() {
         Map<String, Object> variables = new HashMap<>();
-        //variables.put("person", person);
+        variables.put("content", "content");
         //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
-        String content = "content";
         ProcessInstance processInstance = processRuntime
             .start(ProcessPayloadBuilder
                  .start()
                  .withProcessDefinitionKey("categorizeProcess")
                  .withProcessInstanceName("Processing Content: " + content)
-                 .withVariable("content", content)
+                 .withVariables(variables)
                  .build());
     }
 
