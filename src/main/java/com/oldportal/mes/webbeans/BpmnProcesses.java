@@ -5,7 +5,6 @@
  */
 package com.oldportal.mes.webbeans;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.activiti.api.model.shared.model.VariableInstance;
@@ -15,6 +14,7 @@ import org.activiti.api.process.runtime.ProcessRuntime;
 import org.activiti.api.runtime.shared.query.Page;
 import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.builders.TaskPayloadBuilder;
+import org.activiti.api.task.model.payloads.SetTaskVariablesPayload;
 import org.activiti.api.task.runtime.TaskRuntime;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -48,29 +48,25 @@ public class BpmnProcesses {
     private RepositoryService repositoryService;
         
     @Transactional
-    public void startProcess() {
-        Map<String, Object> variables = new HashMap<>();
-        variables.put("content", "content");
+    public ProcessInstance startProcess(String definitionKey, String instanceName, Map<String, Object> variables) {
         //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
-        ProcessInstance processInstance = processRuntime
+        return processRuntime
             .start(ProcessPayloadBuilder
                  .start()
-                 .withProcessDefinitionKey("categorizeProcess")
-                 .withProcessInstanceName("Processing Content: " + content)
+                 .withProcessDefinitionKey(definitionKey)
+                 .withProcessInstanceName(instanceName)
                  .withVariables(variables)
                  .build());
     }
 
     @Transactional(readOnly = true)
-    public List<Task> getTasks(String assignee) {
+    public List<Task> getAssignedTasks(String assignee) {
         return taskService.createTaskQuery().taskAssignee(assignee).list();
     }
     
     @Transactional(readOnly = true)
-    public Page<org.activiti.api.task.model.Task> getTasksPage() {
-        // securityUtil.logInAs("other");
-        Page<org.activiti.api.task.model.Task> tasks = taskRuntime.tasks(Pageable.of(0, 10));
-        return tasks;
+    public Page<org.activiti.api.task.model.Task> getAvailableTasksPage() {
+        return taskRuntime.tasks(Pageable.of(0, 10));
     }
     
     /**
@@ -104,9 +100,14 @@ public class BpmnProcesses {
         taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(taskId).build());
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public List<VariableInstance> getTaskVariables(String taskId) {
         return taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(taskId).build());
+    }
+    
+    @Transactional
+    public void setTaskVariables(String taskId, Map<String, Object> variables) {
+        taskRuntime.setVariables(new SetTaskVariablesPayload(taskId, variables));
     }
     
     
