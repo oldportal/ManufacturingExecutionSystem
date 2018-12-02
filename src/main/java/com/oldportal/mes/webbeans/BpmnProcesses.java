@@ -26,55 +26,59 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * General operations with Activiti BPMN engine.
- * 
+ *
  * @author Dmitry Ognyannikov
  */
 @Service
 public class BpmnProcesses {
-    
+
     @Autowired
     private ProcessRuntime processRuntime;
-    
+
     @Autowired
     private RuntimeService runtimeService;
 
     @Autowired
     private TaskService taskService;
-    
+
     @Autowired
     private TaskRuntime taskRuntime;
 
     @Autowired
     private RepositoryService repositoryService;
-        
+
     @Transactional
     public ProcessInstance startProcess(String definitionKey, String instanceName, Map<String, Object> variables) {
         //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
         return processRuntime
-            .start(ProcessPayloadBuilder
-                 .start()
-                 .withProcessDefinitionKey(definitionKey)
-                 .withProcessInstanceName(instanceName)
-                 .withVariables(variables)
-                 .build());
+                .start(ProcessPayloadBuilder
+                        .start()
+                        .withProcessDefinitionKey(definitionKey)
+                        .withProcessInstanceName(instanceName)
+                        .withVariables(variables)
+                        .build());
     }
 
     @Transactional(readOnly = true)
     public List<Task> getAssignedTasks(String assignee) {
-        return taskService.createTaskQuery().taskAssignee(assignee).list();
+        return taskService.createTaskQuery()
+                .taskAssignee(assignee)
+                .list();
     }
-    
+
     @Transactional(readOnly = true)
     public Page<org.activiti.api.task.model.Task> getAvailableTasksPage() {
         return taskRuntime.tasks(Pageable.of(0, 10));
     }
-    
+
     /**
-     * Create a Group Task (not assigned, all the members of the group can claim it).
+     * Create a Group Task (not assigned, all the members of the group can claim
+     * it).
+     *
      * @param taskName
      * @param taskDescription
      * @param priority
-     * @param groupName 
+     * @param groupName
      */
     @Transactional
     public void createGroupTask(String taskName, String taskDescription, int priority, String groupName) {
@@ -85,16 +89,20 @@ public class BpmnProcesses {
                 .withPriority(priority)
                 .build());
     }
-    
+
     /**
-     * Claim the task, after the claim, nobody else can see the task and the user becomes the assignee.
+     * Claim the task, after the claim, nobody else can see the task and the
+     * user becomes the assignee.
+     *
      * @param taskId
      */
     @Transactional
     public void claimTask(String taskId) {
-        taskRuntime.claim(TaskPayloadBuilder.claim().withTaskId(taskId).build());
+        taskRuntime.claim(TaskPayloadBuilder.claim()
+                .withTaskId(taskId)
+                .build());
     }
-    
+
     @Transactional
     public void completeTask(String taskId, Map<String, Object> variables) {
         taskRuntime.complete(TaskPayloadBuilder.complete()
@@ -102,16 +110,17 @@ public class BpmnProcesses {
                 .withVariables(variables)
                 .build());
     }
-    
+
     @Transactional(readOnly = true)
     public List<VariableInstance> getTaskVariables(String taskId) {
-        return taskRuntime.variables(TaskPayloadBuilder.variables().withTaskId(taskId).build());
+        return taskRuntime.variables(TaskPayloadBuilder.variables()
+                .withTaskId(taskId)
+                .build());
     }
-    
+
     @Transactional
     public void setTaskVariables(String taskId, Map<String, Object> variables) {
         taskRuntime.setVariables(new SetTaskVariablesPayload(taskId, variables));
     }
-    
-    
+
 }
