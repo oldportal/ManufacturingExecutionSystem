@@ -96,8 +96,11 @@ public class BpmnProcesses {
     }
     
     @Transactional
-    public void completeTask(String taskId) {
-        taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(taskId).build());
+    public void completeTask(String taskId, Map<String, Object> variables) {
+        taskRuntime.complete(TaskPayloadBuilder.complete()
+                .withTaskId(taskId)
+                .withVariables(variables)
+                .build());
     }
     
     @Transactional(readOnly = true)
