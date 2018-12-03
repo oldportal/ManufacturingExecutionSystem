@@ -49,7 +49,8 @@ public class BpmnProcesses {
 
     @Transactional
     public ProcessInstance startProcess(String definitionKey, String instanceName, Map<String, Object> variables) {
-        //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("oneTaskProcess");
+        //ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(definitionKey, variables);
+        //ProcessInstance processInstance = runtimeService.createProcessInstanceBuilder().processDefinitionKey(definitionKey).name(instanceName).variables(variables).start();
         return processRuntime
                 .start(ProcessPayloadBuilder
                         .start()
