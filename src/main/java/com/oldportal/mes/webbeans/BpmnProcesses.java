@@ -16,9 +16,11 @@ import org.activiti.api.runtime.shared.query.Pageable;
 import org.activiti.api.task.model.builders.TaskPayloadBuilder;
 import org.activiti.api.task.model.payloads.SetTaskVariablesPayload;
 import org.activiti.api.task.runtime.TaskRuntime;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.task.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +48,9 @@ public class BpmnProcesses {
 
     @Autowired
     private RepositoryService repositoryService;
+    
+    @Autowired
+    private HistoryService historyService;
 
     @Transactional
     public ProcessInstance startProcess(String definitionKey, String instanceName, Map<String, Object> variables) {
@@ -123,5 +128,30 @@ public class BpmnProcesses {
     public void setTaskVariables(String taskId, Map<String, Object> variables) {
         taskRuntime.setVariables(new SetTaskVariablesPayload(taskId, variables));
     }
+    
+    @Transactional
+    public Task onTheFlyTask(String taskName) {
+        Task task = taskService.newTask();
+        task.setName(taskName);
+        taskService.saveTask(task);
+        return task;
+    }
+    
+    @Transactional(readOnly = true)
+    public void printHistory() {
+        List<HistoricProcessInstance> processInstances = historyService.createHistoricProcessInstanceQuery().orderByProcessInstanceStartTime().asc().list();
+        
+        for (HistoricProcessInstance processInstance : processInstances) {            
+            System.out.print("Process def Key: " + processInstance.getProcessDefinitionKey());
+            System.out.print("Process def Name: " + processInstance.getProcessDefinitionName());
+            
+            System.out.print("Process Name: " + processInstance.getName());
+            System.out.print("Process StartTime: " + processInstance.getStartTime());
+            System.out.print("Process EndTime: " + processInstance.getEndTime());
+            System.out.println();
+        }
+    }
+    
+    
 
 }
