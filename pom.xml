@@ -6,7 +6,7 @@
 
     <groupId>com.oldportal</groupId>
     <artifactId>manufacturing-execution-system</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
     <description>BPMN-based discrete manufacturing processes</description>
     <name>ManufacturingExecutionSystem</name>
@@ -16,13 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <activiti.version>7.0.0.Beta3</activiti.version>
+        <activiti.version>7.0.0.Beta4</activiti.version>
     </properties>
     
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.0.4.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
     </parent>
     
   
@@ -120,23 +120,11 @@
             <version>5.22.0</version>
         </dependency>-->
     
+        
         <!-- JSF and PrimeFaces as UI library -->
-        <!--<dependency>
-            <groupId>org.primefaces</groupId>
-            <artifactId>primefaces</artifactId>
-            <version>6.2</version>
-        </dependency>
-    
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
-        </dependency> -->
-    
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -149,6 +137,18 @@
             <artifactId>javax.faces</artifactId>
             <version>2.3.0</version>
         </dependency>
+        
+        <!--<dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>6.2</version>
+        </dependency>
+    
+        <dependency>
+            <groupId>org.primefaces.extensions</groupId>
+            <artifactId>all-themes</artifactId>
+            <version>1.0.8</version>
+        </dependency> -->
 
         <!-- JSON API documentation for spring based applications -->
         <dependency>
@@ -173,7 +173,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <version>1.4.197</version>
         </dependency>
     
         <!-- PostgreSQL - production database -->
@@ -234,7 +233,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.0.0-M2</version>
             </plugin>
             <!-- Code Coverage report generation -->
             <plugin>
@@ -307,7 +306,7 @@
                     <showDeprecation>true</showDeprecation>
                 </configuration>
             </plugin>-->
-            <!-- Exceutable JAR with attached dependencies. Version 2 -->
+            <!-- Executable JAR with attached dependencies. Version 2 - more fast -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -341,7 +340,29 @@
                     </execution>
                 </executions>
             </plugin>
-
+            <!-- Build & push Docker image https://github.com/spotify/dockerfile-maven -->
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>1.4.9</version>
+                <executions>
+                    <execution>
+                        <id>default</id>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>com.oldportal/${project.build.finalName}</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>

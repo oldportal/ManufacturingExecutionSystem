@@ -87,11 +87,11 @@ public class BpmnProcesses {
      * @param groupName
      */
     @Transactional
-    public void createGroupTask(String taskName, String taskDescription, int priority, String groupName) {
+    public void createGroupTask(String taskName, String taskDescription, int priority, String candidateGroupName) {
         taskRuntime.create(TaskPayloadBuilder.create()
                 .withName(taskName)
                 .withDescription(taskDescription)
-                .withGroup(groupName)
+                .withCandidateGroup(candidateGroupName)
                 .withPriority(priority)
                 .build());
     }
