@@ -364,5 +364,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <!-- docker-info type support -->
+        <extensions>
+            <extension>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-extension</artifactId>
+                <version>1.4.9</version>
+            </extension>
+        </extensions>
     </build>
 </project>
