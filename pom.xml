@@ -92,14 +92,27 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
-    
-        <!-- Activiti -->
+        
+        <!-- Camunda BPM -->
         <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
+            <version>3.2.0</version>
+            <scope>test</scope>
+        </dependency>
+    
+        <!-- Activiti BPMN engine -->
+        <!--<dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter</artifactId>
             <version>${activiti.version}</version>
         </dependency>		
-        <!--<dependency>
+        <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-jpa</artifactId>
             <version>${activiti.version}</version>
@@ -340,26 +353,28 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- Executable JAR with attached dependencies. Version 3 - more fast -->
+            
             <!-- Build & push Docker image https://github.com/spotify/dockerfile-maven -->
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.9</version>
+                <!-- Build & push Docker in Maven build cycle - or use mvn dockerfile:build dockerfile:push instead, 
                 <executions>
                     <execution>
                         <id>default</id>
-                        <phase>deploy</phase>
                         <goals>
                             <goal>build</goal>
                             <goal>push</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions>  -->
                 <configuration>
                     <repository>com.oldportal/${project.build.finalName}</repository>
                     <tag>${project.version}</tag>
                     <buildArgs>
-                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                        <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                 </configuration>
             </plugin>

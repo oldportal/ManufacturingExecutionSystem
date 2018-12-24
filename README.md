@@ -9,9 +9,11 @@ Entry points:
 
 http://localhost:8080/
 
-http://localhost:8080/swagger-ui.html
-
 http://localhost:8080/actuator
+
+REST Documentation 
+
+http://localhost:8080/swagger-ui.html
 
 
 Build & Run
@@ -28,7 +30,7 @@ mvn dockerfile:build
 docker run -p 8080:8080 -t com.oldportal/manufacturing-execution-system:0.1-SNAPSHOT
 
 
-Full deploy cycle
+Full Docker deploy cycle
 
 mvn package
 
@@ -39,6 +41,11 @@ mvn verify
 mvn dockerfile:push
 
 
-Short deploy cycle
+Maven dependency on the project Docker image 
 
-mvn deploy
+<dependency>
+  <groupId>com.oldportal</groupId>
+  <artifactId>manufacturing-execution-system</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <type>docker-info</type>
+</dependency>
