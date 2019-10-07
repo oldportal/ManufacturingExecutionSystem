@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -32,9 +33,12 @@ import org.springframework.web.context.WebApplicationContext;
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @SpringJUnitConfig(TestConfiguration.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 public class SampleBeanTest {
+    @Value("${local.server.port}")
+    protected int port;
+    
     @Autowired
     WebApplicationContext wac;
     
@@ -58,7 +62,7 @@ public class SampleBeanTest {
     }
 
     @Test
-    public void testSecureService() {        
+    public void testSecureService() {
 //        String plainCreds = "guest:guest123";
 //        HttpHeaders headers = new HttpHeaders();
 //        headers.add("Authorization", "Basic " + new String(Base64.
