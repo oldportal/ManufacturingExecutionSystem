@@ -16,16 +16,31 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <activiti.version>7.0.0.GA</activiti.version>
+        <spring.boot.version>2.5.4</spring.boot.version>
+        <camunda.spring.boot.starter.version>7.16.0</camunda.spring.boot.starter.version>
     </properties>
-    
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.8.RELEASE</version>
-    </parent>
-    
-  
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.spring.boot.starter.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <licenses>
         <license>
             <name>MIT License</name>
@@ -33,7 +48,7 @@
             <url>https://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-    
+
     <scm>
         <connection>scm:git:https://github.com/oldportal/ManufacturingExecutionSystem.git</connection>
         <url>https://github.com/oldportal/ManufacturingExecutionSystem.git</url>
@@ -58,8 +73,8 @@
         </dependency>
         <!--<dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId> 
-        </dependency>-->        
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-rest</artifactId>
@@ -92,48 +107,22 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
         </dependency>
-        
+
         <!-- Camunda BPM -->
         <dependency>
+            <groupId>org.camunda.bpm</groupId>
+            <artifactId>camunda-engine-spring</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-            <version>3.3.4</version>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
         </dependency>
         <dependency>
             <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-            <version>3.3.4</version>
             <scope>test</scope>
         </dependency>
-    
-        <!-- Activiti BPMN engine -->
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>		
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-jpa</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-rest-api</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-spring-boot-starter-actuator</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-explorer</artifactId>
-            <version>5.22.0</version>
-        </dependency>-->
-    
-        
+
         <!-- JSF and PrimeFaces as UI library -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -150,16 +139,11 @@
             <artifactId>javax.faces</artifactId>
             <version>2.4.0</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>org.primefaces.extensions</groupId>
-            <artifactId>all-themes</artifactId>
-            <version>1.0.8</version>
+            <version>10.0.0</version>
         </dependency>
 
         <!-- JSON API documentation for spring based applications -->
@@ -172,26 +156,26 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.9.2</version>
-        </dependency>       
+        </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-bean-validators</artifactId>
             <version>2.9.2</version>
         </dependency>
-    
+
         <!-- Database dependencies - https://www.jooq.org/ -->
         <!--<dependency>
             <groupId>org.jooq</groupId>
             <artifactId>jooq</artifactId>
             <version>3.12.1</version>
         </dependency> -->
-    
+
         <!-- Database dependencies - test with H2 database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
-    
+
         <!-- PostgreSQL - production database -->
         <!--<dependency>
             <groupId>org.postgresql</groupId>
@@ -205,13 +189,13 @@
             <artifactId>org.everit.json.schema</artifactId>
             <version>1.5.1</version>
         </dependency>
-    
+
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.10.0</version>
         </dependency>
-    
+
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
@@ -229,7 +213,7 @@
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- Utilites -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -252,7 +236,7 @@
                 <version>3.0.0-M3</version>
             </plugin>
             <!-- Code Coverage report generation -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.4</version>
@@ -270,7 +254,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!-- Code static analyzers -->
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
@@ -356,13 +340,13 @@
                     </execution>
                 </executions>
             </plugin>
-            
+
             <!-- Build & push Docker image https://github.com/spotify/dockerfile-maven -->
-            <plugin>
+            <!--<plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>dockerfile-maven-plugin</artifactId>
                 <version>1.4.12</version>
-                <!-- Build & push Docker in Maven build cycle - or use mvn dockerfile:build dockerfile:push instead, 
+                 Build & push Docker in Maven build cycle - or use mvn dockerfile:build dockerfile:push instead,
                 <executions>
                     <execution>
                         <id>default</id>
@@ -371,7 +355,7 @@
                             <goal>push</goal>
                         </goals>
                     </execution>
-                </executions>  -->
+                </executions>
                 <configuration>
                     <repository>com.oldportal/${project.build.finalName}</repository>
                     <tag>${project.version}</tag>
@@ -379,7 +363,7 @@
                         <JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
                     </buildArgs>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
         <!-- docker-info type support -->
         <extensions>
